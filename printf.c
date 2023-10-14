@@ -35,7 +35,7 @@ int _printf(const char *format, ...)
  */
 int handle_format_strings(const char *format, va_list args)
 {
-	int noOfBytes, i;
+	int noOfBytes, i, flag_byte;
 
 	s_H specifierHandler[] = {
 		{'d', handle_integers},
@@ -46,7 +46,7 @@ int handle_format_strings(const char *format, va_list args)
 		{'\0', NULL}
 	};
 
-	noOfBytes = 0;
+	flag_byte = noOfBytes = 0;
 	while (format && *format)
 	{
 		if (*format != '%')
@@ -55,12 +55,18 @@ int handle_format_strings(const char *format, va_list args)
 			noOfBytes++, format++;
 			continue;
 		}
-		format++; /* Move past '%' */
+		flag_byte = call_flags(format);
+		if (flag_byte)
+			format++, noOfBytes += flag_byte;
+
+		format++;
 		i = 0;
 		while (specifierHandler[i].formatSpecifier != '\0')
 		{
 			if (*format == specifierHandler[i].formatSpecifier)
+			{
 				noOfBytes += specifierHandler[i].handlerFunction_ptr(args);
+			}
 			i++;
 		}
 
