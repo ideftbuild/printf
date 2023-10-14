@@ -137,4 +137,48 @@ int handle_format_strings(const char *format, va_list args);
  * Return: The number of bytes printed
  */
 int _printf(const char *format, ...);
+
+/**
+ * handle_plus - Handles the flag '+'
+ * for non-custom conversion specifiers
+ *
+ * @format: The format string
+ *
+ * Return: 1 if the flag is successfly outputted
+ * otherwise 0
+ */
+int handle_plus(const char *format);
+
+/**
+ * handle_sharp - Handles the flag '#'
+ * for non-custom conversion specifiers
+ *
+ * @format: The format string
+ *
+ * Return: 1 if the flag is successfly outputted
+ * otherwise 0
+ */
+int handle_sharp(const char *format);
+
+/**
+ * handle_space - Handles the flag ' '
+ * for non-custom conversion specifiers
+ *
+ * @format: The format string
+ *
+ * Return: 1 if the flag is successfly outputted
+ * otherwise 0
+ */
+int handle_space(const char *format);
+
+/**
+ * call_flags - Creates a table of functions
+ * that calls all the specfier flags function
+ *
+ * @format: The format string
+ *
+ * Return: 1 if the flag is successfly outputted
+ * otherwise 0
+ */
+int call_flags(const char *format);
 #endif /* PRINTF_H */
