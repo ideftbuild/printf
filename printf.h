@@ -55,7 +55,7 @@ enum Constant
 {
 	Zero = 0,
 	int_flag = 1, null_byte = 1, negative_sign_byte = 1,
-	hexi_flag = 2, negative_hexi = 10,
+	hexi_flag = 2, negative_hexi = 10
 };
 
 /**
