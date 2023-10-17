@@ -25,11 +25,10 @@ int main(void)
 	printf("%d\n", noOfBytes);
 
 	/* Test 3 */
-	char *str = "Hello Akan! Hello Loni!";
-	noOfBytes = _printf("String: %s\n", str);
+	noOfBytes = _printf("String: %s\n", "It works!");
 	printf("%d\n", noOfBytes);
 
-	noOfBytes = printf("String: %s\n", str);
+	noOfBytes = printf("String: %s\n", "It works!");
 	printf("%d\n", noOfBytes);
 
 	return (0);
