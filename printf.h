@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 /**
- * struct specifierHandler - maps the corresponding specifier to it function
+ * struct specifierHandler - maps the corresponding specifier to its function
  *
  * @formatSpecifier: The specifer to map to can either be
  * - s: for strings
@@ -76,7 +76,7 @@ int handle_integers(va_list args);
  *
  * @number: The number
  * @flag: This flag can either be 1 or 2, letting the function
- * know if to get the length of integers of hexadecimals
+ * know if to get the length of integers or hexadecimals
  * 1 signfies integers, 2 signfies hexadecimal
  *
  * Return: The derived length of number of digit
@@ -88,7 +88,7 @@ int getNumberLength(int number, short flag);
  * handle_lowerHexi - handle the format specifier
  * '%x' for lower hexadecimals
  *
- * @args: The argment passed
+ * @args: The argument passed
  *
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
@@ -99,7 +99,7 @@ int handle_lowerHexi(va_list args);
  * handle_upperHexi - handle the format specifier
  * '%X' for upper hexadecimals
  *
- * @args: The argment passed
+ * @args: The argument passed
  *
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
@@ -110,7 +110,7 @@ int handle_upperHexi(va_list args);
  * handle_lowerHexi - handle the format specifier
  * '%x' for lower hexadecimals
  *
- * @args: The argment passed
+ * @args: The argument passed
  *
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
