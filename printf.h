@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
 #include <unistd.h>
 
 /**
@@ -26,14 +27,32 @@
 typedef struct specifierHandler
 {
 	char formatSpecifier;
-	int (*handlerFunction_ptr)(va_list);
+	char *(*handlerFunction_ptr)(va_list);
 } s_H;
 
+/**
+ * struct specifier_flag - handles flags for some format specifier
+ *
+ * @flag: this flags are typically
+ *
+ * # - sharp
+ * ' ' - space
+ * + - plus
+ *
+ * @handleFlag_ptr: The function pointer responsible to calling
+ * this flags function
+ *
+ */
+typedef struct specifier_flag
+{
+	char flag;
+	char *(*handleFlag_ptr)(const char **);
+} s_F;
 /* Macros */
-#define NULL_BYTE 1
-#define U_INT 32
+#define BUFF_SIZE 1024
 
 /* Alias */
+typedef unsigned int u_int;
 typedef char *String;
 
 /**
@@ -67,7 +86,7 @@ enum Constant
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_integers(va_list args);
+char *handle_integers(va_list args);
 
 
 /**
@@ -93,7 +112,7 @@ int getNumberLength(int number, short flag);
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_lowerHexi(va_list args);
+char *handle_lowerHexi(va_list args);
 
 /**
  * handle_upperHexi - handle the format specifier
@@ -104,7 +123,7 @@ int handle_lowerHexi(va_list args);
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_upperHexi(va_list args);
+char *handle_upperHexi(va_list args);
 
 /**
  * handle_lowerHexi - handle the format specifier
@@ -115,7 +134,7 @@ int handle_upperHexi(va_list args);
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_unsigned(va_list args);
+char *handle_unsigned_int(va_list args);
 
 /**
  * handle_format_strings - handle the printing of formatted
@@ -147,7 +166,7 @@ int _printf(const char *format, ...);
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_plus(const char *format);
+char *handle_plus(const char **format);
 
 /**
  * handle_sharp - Handles the flag '#'
@@ -158,7 +177,7 @@ int handle_plus(const char *format);
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_sharp(const char *format);
+char *handle_sharp(const char **format);
 
 /**
  * handle_space - Handles the flag ' '
@@ -169,7 +188,7 @@ int handle_sharp(const char *format);
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_space(const char *format);
+char *handle_space(const char **format);
 
 /**
  * call_flags - Creates a table of functions
@@ -180,5 +199,30 @@ int handle_space(const char *format);
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int call_flags(const char *format);
+char *call_flags(const char **format);
+
+char *handle_binaries(va_list args);
+
+/**
+ * reverse_string - reverse a string
+ *
+ * @pString: A pointer to the string
+ *
+ * Return: The reversed string
+ */
+char *reverse_string(char *pString);
+
+void add_to_buffer(char **buffer, int *position,
+				   char *store, int *incrementSize);
+
+void null_terminate(char **buffer, int incrementSize, int position);
+
+void free_block(char *buffer, s_H *specifierHandler);
+
+char *handle_non_specifier(const char *format);
+
+char *call_argument(va_list args, s_H specifierHandler[],
+					const char *format);
+
+s_H *createSpecifierHandler();
 #endif /* PRINTF_H */
