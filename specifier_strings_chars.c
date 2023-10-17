@@ -22,3 +22,13 @@ int handle_strings(va_list args)
 
   return (write(1, str, noOfBytes));
 }
+
+/**
+ * handle_percent - prints %%
+ * 
+ * Return: nothing
+*/
+void handle_percent()
+{
+  printf("%%");
+}

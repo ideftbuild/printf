@@ -192,4 +192,11 @@ int call_flags(const char *format);
 */
 int handle_strings(va_list args);
 
+/**
+ * handle_percent - handles the % sign
+ * 
+ * Return: Always 0 (Success)
+*/
+void handle_percent();
+
 #endif /* PRINTF_H */
