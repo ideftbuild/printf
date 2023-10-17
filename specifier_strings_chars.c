@@ -57,3 +57,39 @@ int handle_reverse_strings(va_list args)
 
   return (noOfBytes);
 }
+
+/**
+ * handle_rot13 - handles rot13 for a given string 
+ * 
+ * @args - Argument list
+ * 
+ * Return: Number of bytes
+*/
+int handle_rot13(va_list args)
+{
+  const char* str = va_arg(args, const char*);
+  int noOfBytes = 0;
+  int i;
+
+  while (str[noOfBytes] != '\0')
+  noOfBytes++;
+
+  for (i = 0; i < noOfBytes; i++)
+  {
+    char c = str[i];
+
+    if ('a' <= c && c <= 'z')
+    {
+      c = ((c - 'a') + 13) % 26 + 'a';
+    }
+    else if ('A' <= c && c <= 'Z')
+    {
+      c = ((c - 'A') + 13) % 26 + 'A';
+    }
+
+    printf("%c", c);
+  }
+
+  return (write(1, str, noOfBytes));
+  
+}

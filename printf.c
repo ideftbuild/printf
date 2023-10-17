@@ -46,6 +46,7 @@ int handle_format_strings(const char *format, va_list args)
 		{'s', handle_strings},
 		{'%', handle_percent},
 		{'r', handle_reverse_strings},
+		{'R', handle_rot13},
 		{'\0', NULL}
 	};
 

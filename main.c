@@ -39,5 +39,9 @@ int main(void)
 	noOfBytes = _printf("Reversed: %r\n", "Hello!");
 	printf("%d\n", noOfBytes);
 
+	/* Test 6 */
+	noOfBytes = _printf("Rotated String: %R\n", "ABCD");
+	printf("%d\n", noOfBytes);
+
 	return (0);
 }

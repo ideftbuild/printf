@@ -211,4 +211,14 @@ int handle_percent(va_list args);
  * Return: Number of bytes
 */
 int handle_reverse_strings(va_list args);
+
+/**
+ * handle_rot13 - handles rot13 for a given string 
+ * 
+ * @args - Argument list
+ * 
+ * Return: Number of bytes
+*/
+int handle_rot13(va_list args);
+
 #endif /* PRINTF_H */
