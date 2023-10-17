@@ -1,4 +1,6 @@
 #include "printf.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * _printf - Format and print data
@@ -35,42 +37,122 @@ int _printf(const char *format, ...)
  */
 int handle_format_strings(const char *format, va_list args)
 {
-	int noOfBytes, i, flag_byte;
+	int size, position;
+	char *buffer, *argument_value;
 
-	s_H specifierHandler[] = {
-		{'d', handle_integers},
-		{'i', handle_integers},
-		{'x', handle_lowerHexi},
-		{'X', handle_upperHexi},
-		{'u', handle_unsigned},
-		{'\0', NULL}
-	};
 
-	flag_byte = noOfBytes = 0;
+	s_H *specifierHandler = createSpecifierHandler();
+
+	position = 0;
+	size = 1024;
+	buffer = malloc(size); /* Allocate memory of 1024 for the buffer */
+	argument_value = NULL;
+
 	while (format && *format)
 	{
 		if (*format != '%')
+			argument_value = strndup(format, 1); /* A copy of the current character */
+		else
 		{
-			write(1, format, 1);
-			noOfBytes++, format++;
-			continue;
-		}
-		flag_byte = call_flags(format);
-		if (flag_byte)
-			format++, noOfBytes += flag_byte;
-
-		format++;
-		i = 0;
-		while (specifierHandler[i].formatSpecifier != '\0')
-		{
-			if (*format == specifierHandler[i].formatSpecifier)
+			format++;
+			argument_value = call_flags(&format);
+			/* The flag entered is valid so add to the buffer */
+			if (argument_value)
 			{
-				noOfBytes += specifierHandler[i].handlerFunction_ptr(args);
+				add_to_buffer(&buffer, &position, argument_value, &size);
+				format++;
 			}
-			i++;
-		}
 
+			argument_value = call_argument(args, specifierHandler, format);
+
+		}
+		if (argument_value != NULL)
+			add_to_buffer(&buffer, &position, argument_value, &size);
+		free(argument_value);
 		format++;
 	}
-	return (noOfBytes); /* Total number of bytes printed */
+	write(1, buffer, position);
+	free_block(buffer, specifierHandler);
+	return (position); /* Total number of bytes printed */
+}
+
+/**
+ * call_argument - calls the argument from the list
+ *
+ * @args: The current argument, increments to the next
+ * after using
+ * @specifierHandler: The table that maps specifiers to it function
+ * @format: Current address from the formatted string
+ *
+ * Return: A pointer of the formatted string
+ */
+char *call_argument(va_list args, s_H specifierHandler[], const char *format)
+{
+	int i;
+	char *argument_value;
+
+
+	i = 0;
+	while (specifierHandler[i].formatSpecifier != '\0')
+	{
+		if (*format == specifierHandler[i].formatSpecifier)
+		{
+			argument_value = specifierHandler[i].handlerFunction_ptr(args);
+			return (argument_value);
+		}
+		i++;
+	}
+
+	return (NULL);
+}
+
+/**
+ * createSpecifierHandler - dynamicalys allocates memory, to map
+ * specifiers to their corressponding function
+ *
+ *
+ * Return: The table
+ */
+s_H *createSpecifierHandler(void)
+{
+	char *specifiers;
+	int i;
+
+	char *(*handlers[])(va_list) = {
+		handle_integers, handle_integers, handle_lowerHexi, handle_upperHexi,
+		handle_unsigned_int, handle_binaries, NULL
+	};
+
+	s_H *specifierHandler = malloc(sizeof(s_H) *  7);
+
+	if (specifierHandler == NULL)
+	{
+		printf("Memory allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	specifiers = "dixXub\0";
+	i = 0;
+	while (specifiers[i] != '\0')
+	{
+		specifierHandler[i].formatSpecifier = specifiers[i];
+		specifierHandler[i].handlerFunction_ptr = handlers[i];
+		i++;
+	}
+
+	return (specifierHandler);
+}
+
+/**
+ * free_block - frees memory block
+ *
+ * @buffer: stores the formatted string so after outputing it
+ * free it
+ *
+ * @specifierHandler: the table that maps specifiers to it function
+ */
+void free_block(char *buffer, s_H *specifierHandler)
+{
+	free(buffer);
+	free(specifierHandler);
 }
