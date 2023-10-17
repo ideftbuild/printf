@@ -35,5 +35,9 @@ int main(void)
 	noOfBytes = _printf("Testing %%\n", 4);
 	printf("%d\n", noOfBytes);
 
+	/* Test 5 */
+	noOfBytes = _printf("Reversed: %r\n", "Hello!");
+	printf("%d\n", noOfBytes);
+	
 	return (0);
 }

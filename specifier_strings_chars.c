@@ -33,3 +33,27 @@ int handle_percent(va_list args)
 
   return (2);
 }
+
+/**
+ * handle_reverse_strings - prints the reverse of a string
+ * 
+ * @args: Argument list
+ * 
+ * Return: rNumbe rof bytes
+*/
+int handle_reverse_strings(va_list args)
+{
+  const char* str = va_arg(args, const char*);
+  int noOfBytes = 0;
+  int i;
+
+  while (str[noOfBytes] != '\0')
+    noOfBytes++;
+
+  for (i = noOfBytes - 1; i >= 0; i--)
+  {
+    printf("%c", str[i]);
+  }
+
+  return (noOfBytes);
+}
