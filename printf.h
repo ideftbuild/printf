@@ -181,4 +181,9 @@ int handle_space(const char *format);
  * otherwise 0
  */
 int call_flags(const char *format);
+
+/**
+ * handle_strings 
+*/
+int handle_strings();
 #endif /* PRINTF_H */
