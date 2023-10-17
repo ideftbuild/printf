@@ -201,4 +201,14 @@ int handle_strings(va_list args);
 */
 int handle_percent(va_list args);
 
+/**
+ * handle_reverse_strings - handles %r specifier 
+ * prints the reverse of a given string
+ * 
+ * @args: Argument list
+ * 
+ * Return: Number of bytes printed and reverse string
+*/
+int handle_reverse_strings(va_list args);
+
 #endif /* PRINTF_H */

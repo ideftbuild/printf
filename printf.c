@@ -45,6 +45,7 @@ int handle_format_strings(const char *format, va_list args)
 		{'u', handle_unsigned},
 		{'s', handle_strings},
 		{'%', handle_percent},
+		{'r', handle_reverse_strings},
 		{'\0', NULL}
 	};
 
