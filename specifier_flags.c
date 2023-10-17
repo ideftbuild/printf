@@ -1,4 +1,5 @@
 #include "printf.h"
+#include <stdio.h>
 
 /**
  * handle_plus - Handles the flag '+'
@@ -9,32 +10,24 @@
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_plus(const char *format)
+char *handle_plus(const char **format)
 {
-	int noOfBytes, i;
+	int i;
 
 	/* This specifiers determine if the flags will be used */
 	char specifier[3] = "dfi";
 
-	noOfBytes = 0;
-	if (*(format + 1) == '+')
+	i = 0;
+	while (i < 3)
 	{
-		i = 0;
-		while (i < 3)
-		{
-			if (*(format + 2) == specifier[i])
-			{
-				/* Format matches with one of the specifier in the array, so print */
-				noOfBytes++;
-				write(1, "+", noOfBytes);
-
-			}
-			i++;
-		}
-		return (noOfBytes);
+		if (*(*format + 1) == specifier[i])
+			return ("+");
+		i++;
 	}
-	else
-		return (noOfBytes);
+
+	/* Does not match the non non-custom specifier */
+	(*format)++;
+	return (NULL);
 }
 
 
@@ -47,31 +40,23 @@ int handle_plus(const char *format)
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_space(const char *format)
+char *handle_space(const char **format)
 {
-	int noOfBytes, i;
-
+	int i;
 	/* This specifiers determine if the flags will be used */
 	char specifier[3] = "dfi";
 
-	noOfBytes = Zero;
-	if (*(format + 1) == ' ')
+	i = Zero;
+	while (i < 3)
 	{
-		i = Zero;
-		while (i < 3)
-		{
-			if (*(format + 2) == specifier[i])
-			{
-				/* Format matches with one of the specifier in the array, so print */
-				noOfBytes++;
-				write(1, " ", noOfBytes);
-			}
-			i++;
-		}
-		return (noOfBytes);
+		if (*(*format + 1) == specifier[i])
+			return (" ");
+		i++;
 	}
-	else
-		return (noOfBytes);
+
+	/* Does not match the non non-custom specifier */
+	(*format)++;
+	return (NULL);
 }
 
 /**
@@ -83,31 +68,24 @@ int handle_space(const char *format)
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int handle_sharp(const char *format)
+char *handle_sharp(const char **format)
 {
-	int noOfBytes, i;
+	int i;
 
 	/* This specifiers determine if the flags will be used */
 	char specifier[3] = "xXo";
 
-	noOfBytes = 0;
-	if (*(format + 1) == '#')
+	i = 0;
+	while (i < 3)
 	{
-		i = 0;
-		while (i < 3)
-		{
-			if (*(format + 2) == specifier[i])
-			{
-				/* Format matches with one of the specifier in the array, so print */
-				noOfBytes += 2;
-				write(1, "0x", noOfBytes);
-			}
-			i++;
-		}
-		return (noOfBytes);
+		if (*(*format + 1) == specifier[i])
+			return ("0x");
+		i++;
 	}
-	else
-		return (noOfBytes);
+
+	/* Does not match the non non-custom specifier */
+	(*format)++;
+	return (NULL);
 }
 
 /**
@@ -119,28 +97,31 @@ int handle_sharp(const char *format)
  * Return: 1 if the flag is successfly outputted
  * otherwise 0
  */
-int call_flags(const char *format)
+char *call_flags(const char **format)
 {
-	int i, noOfBytes;
+	int i;
+	char *argument_value;
 
-	/* Store the specfier flags function in this table */
-	int (*pFlags[3])(const char *format) = {
-		handle_plus,
-		handle_space,
-		handle_sharp,
+	s_F specifier_flags[] = {
+		{'+', handle_plus },
+		{' ', handle_space },
+		{'#', handle_sharp },
+		{'\0', NULL}
 	};
 
-	/* Call the specfier flags one after the other */
+	argument_value = NULL;
 	i = 0;
-	noOfBytes = 0;
-	while (i < 3)
+
+	while (specifier_flags[i].flag != '\0')
 	{
-		noOfBytes = pFlags[i](format);
-		if (noOfBytes)
+		if (**format == specifier_flags[i].flag)
 		{
-			return (noOfBytes);
+			argument_value = specifier_flags[i].handleFlag_ptr(format);
+			return (argument_value);
 		}
 		i++;
 	}
-	return (noOfBytes);
+
+	/* The current character is not a flag */
+	return (argument_value);
 }
