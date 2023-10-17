@@ -24,5 +24,13 @@ int main(void)
 	noOfBytes = printf("%x %x %x", -1024, 1024, 292929);
 	printf("%d\n", noOfBytes);
 
+	/* Test 3 */
+	char *str = "Hello Akan! Hello Loni!";
+	noOfBytes = _printf("String: %s\n", str);
+	printf("%d\n", noOfBytes);
+
+	noOfBytes = printf("String: %s\n", str);
+	printf("%d\n", noOfBytes);
+
 	return (0);
 }

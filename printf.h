@@ -191,4 +191,5 @@ int call_flags(const char *format);
  * Return: Number of bytes printed 
 */
 int handle_strings(va_list args);
+
 #endif /* PRINTF_H */

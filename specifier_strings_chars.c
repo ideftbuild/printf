@@ -1,25 +1,25 @@
 #include "printf.h"
 
 /**
- * handle_strings - handles format specifier 
- * %s for strings 
- * 
- * @args: Variable argument list containing
- * string to be printed
- * 
- * Return: number of bytes written
-*/
+ * handle_strings - handle the %s format specifier
+ *
+ * @args: The argument list
+ *
+ * Return: The number of bytes printed
+ */
 int handle_strings(va_list args)
 {
-	String str = va_arg(args, String);
-	int noOfBytes = 0;
+    char *str = va_arg(args, char *);
+    int noOfBytes = 0;
 
-	/* Calculate string's length */
-	while (str[noOfBytes] != '\0')
-		noOfBytes++;
-	
-	/* Print string to standard output */
-	write(1, str, noOfBytes);
+    if (str == NULL)
+        return (write(1, "(null)", 6));
 
-	return (noOfBytes);
+    while (str[noOfBytes])
+    {
+        write(1, &str[noOfBytes], 1);
+        noOfBytes++;
+    }
+
+    return (noOfBytes);
 }

@@ -43,6 +43,7 @@ int handle_format_strings(const char *format, va_list args)
 		{'x', handle_lowerHexi},
 		{'X', handle_upperHexi},
 		{'u', handle_unsigned},
+		{'s', handle_strings},
 		{'\0', NULL}
 	};
 
