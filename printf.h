@@ -183,7 +183,12 @@ int handle_space(const char *format);
 int call_flags(const char *format);
 
 /**
- * handle_strings 
+ * handle_strings - handles the format specifier
+ * %s for printing strings
+ * 
+ * @args: The argument passed
+ * 
+ * Return: Number of bytes printed 
 */
-int handle_strings();
+int handle_strings(va_list args);
 #endif /* PRINTF_H */
