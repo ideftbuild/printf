@@ -193,10 +193,12 @@ int call_flags(const char *format);
 int handle_strings(va_list args);
 
 /**
- * handle_percent - handles the % sign
+ * handle_percent - handles %% format specifier
  * 
- * Return: Always 0 (Success)
+ * @args: Argument list
+ * 
+ * Return: Numbe rof bytes printed
 */
-void handle_percent();
+int handle_percent(va_list args);
 
 #endif /* PRINTF_H */

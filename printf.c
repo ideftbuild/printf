@@ -44,6 +44,7 @@ int handle_format_strings(const char *format, va_list args)
 		{'X', handle_upperHexi},
 		{'u', handle_unsigned},
 		{'s', handle_strings},
+		{'%', handle_percent},
 		{'\0', NULL}
 	};
 

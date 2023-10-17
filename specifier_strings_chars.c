@@ -12,10 +12,6 @@ int handle_strings(va_list args)
   char *str = va_arg(args, char *);
   int noOfBytes = 0;
 
-  /* Prints null if string is empty alongside number of bytes */
-  if (str == NULL)
-      return (write(1, "null", 4));
-
   /* Calculate string's length */
   while (str[noOfBytes] != '\0')
       noOfBytes++;
@@ -24,11 +20,16 @@ int handle_strings(va_list args)
 }
 
 /**
- * handle_percent - prints %%
+ * handle_percent - handles case when the symbol after % is %
  * 
- * Return: nothing
+ * Return: %% and number of bytes
 */
-void handle_percent()
+int handle_percent(va_list args)
 {
-  printf("%%");
+  (void)args; /* Unused argument */
+
+  /* Print %% to stdout*/
+  write(1, "%%", 2);
+
+  return (2);
 }

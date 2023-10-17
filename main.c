@@ -31,5 +31,9 @@ int main(void)
 	noOfBytes = printf("String: %s\n", "It works!");
 	printf("%d\n", noOfBytes);
 
+	/* Test 4 */
+	noOfBytes = _printf("Testing %%\n", 4);
+	printf("%d\n", noOfBytes);
+
 	return (0);
 }
