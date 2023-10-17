@@ -39,7 +39,7 @@ int handle_percent(va_list args)
  * 
  * @args: Argument list
  * 
- * Return: rNumbe rof bytes
+ * Return: Number of  bytes
 */
 int handle_reverse_strings(va_list args)
 {
