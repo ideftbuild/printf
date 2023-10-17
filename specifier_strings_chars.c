@@ -9,17 +9,16 @@
  */
 int handle_strings(va_list args)
 {
-    char *str = va_arg(args, char *);
-    int noOfBytes = 0;
+  char *str = va_arg(args, char *);
+  int noOfBytes = 0;
 
-    if (str == NULL)
-        return (write(1, "(null)", 6));
+  /* Prints null if string is empty alongside number of bytes */
+  if (str == NULL)
+      return (write(1, "null", 4));
 
-    while (str[noOfBytes])
-    {
-        write(1, &str[noOfBytes], 1);
-        noOfBytes++;
-    }
+  /* Calculate string's length */
+  while (str[noOfBytes] != '\0')
+      noOfBytes++;
 
-    return (noOfBytes);
+  return (write(1, str, noOfBytes));
 }
