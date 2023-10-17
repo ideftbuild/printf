@@ -1,6 +1,4 @@
-#include "printf.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "main.h"
 
 /**
  * add_to_buffer - add the formatted string to the buffer

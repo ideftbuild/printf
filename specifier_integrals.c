@@ -1,5 +1,4 @@
-#include "printf.h"
-#include <stdio.h>
+#include "main.h"
 
 /**
  * handle_integers - handle the format specifier
