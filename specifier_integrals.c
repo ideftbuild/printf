@@ -1,4 +1,5 @@
 #include "printf.h"
+#include <stdio.h>
 
 /**
  * handle_integers - handle the format specifier
@@ -9,14 +10,14 @@
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_integers(va_list args)
+char *handle_integers(va_list args)
 {
 	String num_buff;
 	int noOfBytes, number;
 
 	number = va_arg(args, int);
-	noOfBytes = getNumberLength(number, int_flag);
 
+	noOfBytes = getNumberLength(number, int_flag);
 	num_buff = malloc(sizeof(char) * noOfBytes); /* Allocate memory */
 
 	/* Allocating of memory failed */
@@ -28,10 +29,7 @@ int handle_integers(va_list args)
 	/* Convert number to string and store in num_buff */
 	noOfBytes = snprintf(num_buff, noOfBytes, "%d", number);
 
-	write(1, num_buff, noOfBytes); /* Output the number */
-
-	free(num_buff);
-	return (noOfBytes);
+	return (num_buff);
 }
 
 /**
@@ -43,7 +41,7 @@ int handle_integers(va_list args)
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_lowerHexi(va_list args)
+char *handle_lowerHexi(va_list args)
 {
 	int noOfBytes, number;
 	String num_buff;
@@ -56,15 +54,12 @@ int handle_lowerHexi(va_list args)
 		return (0);
 
 	/* Including null-terminator and the minus '-' operator*/
-	noOfBytes = NULL_BYTE + negative_hexi;
+	noOfBytes = null_byte + negative_hexi;
 
 	/* Convert number to string and store in num_buff */
 	noOfBytes = snprintf(num_buff, noOfBytes, "%x", number);
 
-	write(1, num_buff, noOfBytes); /* Output the number */
-
-	free(num_buff);
-	return (noOfBytes);
+	return (num_buff);
 }
 
 /**
@@ -76,7 +71,7 @@ int handle_lowerHexi(va_list args)
  * Return: The number of bytes printed out to printf
  * otherwise 0, if the function fails
  */
-int handle_upperHexi(va_list args)
+char *handle_upperHexi(va_list args)
 {
 	int noOfBytes, number;
 	String num_buff;
@@ -89,26 +84,23 @@ int handle_upperHexi(va_list args)
 	if (num_buff == NULL)
 		return (0);
 	/* Including null-terminator and the minus '-' operator*/
-	noOfBytes = NULL_BYTE + negative_hexi;
+	noOfBytes = null_byte + negative_hexi;
 
 	/* Convert number to string and store in num_buff */
 	noOfBytes = snprintf(num_buff, noOfBytes, "%X", number);
 
-	write(1, num_buff, noOfBytes); /* Output the number */
-
-	free(num_buff);
-	return (noOfBytes);
+	return (num_buff);
 }
 
 /**
- * handle_unsigned - handle the format specifier
+ * handle_unsigned_int - handle the format specifier
  * '%u' for unsigned int
  *
  * @args: The argment passed
  *
  * Return: The number of bytes printed out to printf
  */
-int handle_unsigned(va_list args)
+char *handle_unsigned_int(va_list args)
 {
 	int noOfBytes;
 	String num_buff;
@@ -116,18 +108,15 @@ int handle_unsigned(va_list args)
 
 	number = va_arg(args, unsigned int);
 	if ((int)number < Zero)
-		noOfBytes = negative_hexi +  NULL_BYTE;
+		noOfBytes = negative_hexi +  null_byte;
 	else
-		noOfBytes = getNumberLength(number, int_flag) + NULL_BYTE;
+		noOfBytes = getNumberLength(number, int_flag) + null_byte;
 
 	num_buff = malloc(sizeof(char) * noOfBytes);
 
 	/* Convert number to string and store in num_buff */
 	noOfBytes = snprintf(num_buff, noOfBytes, "%u", number);
-
-	write(1, num_buff, noOfBytes);
-
-	return (noOfBytes);
+	return (num_buff);
 }
 
 /**
