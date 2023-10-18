@@ -236,4 +236,16 @@ s_H *createSpecifierHandler();
  * otherwise 0, if the function fails
  */
 char *handle_address(va_list args);
+
+/**
+ * handle_octal - handle the format specifier
+ * '%o' to print out octals
+ *
+ * @args: The argment passed
+ *
+ * Return: A pointer to the argument to be printed out
+ * otherwise 0, if the function fails
+ */
+char *handle_octal(va_list args);
+
 #endif /* PRINTF_H */
