@@ -118,10 +118,10 @@ s_H *createSpecifierHandler(void)
 
 	char *(*handlers[])(va_list) = {
 		handle_integers, handle_integers, handle_lowerHexi, handle_upperHexi,
-		handle_unsigned_int, handle_binaries, NULL
+		handle_unsigned_int, handle_binaries, handle_address, NULL
 	};
 
-	s_H *specifierHandler = malloc(sizeof(s_H) *  7);
+	s_H *specifierHandler = malloc(sizeof(s_H) *  8);
 
 	if (specifierHandler == NULL)
 	{
@@ -129,7 +129,7 @@ s_H *createSpecifierHandler(void)
 		exit(EXIT_FAILURE);
 	}
 
-	specifiers = "dixXub\0";
+	specifiers = "dixXubp\0";
 	i = 0;
 	while (specifiers[i] != '\0')
 	{
