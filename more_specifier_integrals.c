@@ -6,7 +6,7 @@
  *
  * @args: The argment passed
  *
- * Return: The number of bytes printed out to printf
+ * Return: A pointer to the argument to be printed out
  * otherwise 0, if the function fails
  */
 char *handle_binaries(va_list args)
@@ -73,4 +73,25 @@ char *reverse_string(char *pString)
 	return (copy);
 }
 
+/**
+ * handle_address - handle the format specifier
+ * '%p' to print out address
+ *
+ * @args: The argment passed
+ *
+ * Return: A pointer to the argument to be printed out
+ * otherwise 0, if the function fails
+ */
+char *handle_address(va_list args)
+{
+	char *buffer;
+	void *address;
 
+	address = va_arg(args, void *);
+
+	buffer = malloc(9 * sizeof(char));
+
+	sprintf(buffer, "%p", address); /* Place the hexadecimal in the buffer */
+
+	return (buffer);
+}
