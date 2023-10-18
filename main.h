@@ -225,4 +225,15 @@ char *call_argument(va_list args, s_H specifierHandler[],
 					const char *format);
 
 s_H *createSpecifierHandler();
+
+/**
+ * handle_address - handle the format specifier
+ * '%p' to print out address
+ *
+ * @args: The argment passed
+ *
+ * Return: A pointer to the argument to be printed out
+ * otherwise 0, if the function fails
+ */
+char *handle_address(va_list args);
 #endif /* PRINTF_H */
