@@ -95,3 +95,29 @@ char *handle_address(va_list args)
 
 	return (buffer);
 }
+
+
+
+/**
+ * handle_octal - handle the format specifier
+ * '%o' to print out octals
+ *
+ * @args: The argment passed
+ *
+ * Return: A pointer to the argument to be printed out
+ * otherwise 0, if the function fails
+ */
+char *handle_octal(va_list args)
+{
+	char *octal_buff;
+	u_int number;
+
+	number = va_arg(args, u_int);
+
+	/* 11 byte, is the length of the higest octal representations */
+	octal_buff = calloc(11, sizeof(char));
+
+	sprintf(octal_buff, "%o", number);
+
+	return (octal_buff);
+}
