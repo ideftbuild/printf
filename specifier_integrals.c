@@ -76,7 +76,7 @@ char *handle_upperHexi(va_list args)
 	String num_buff;
 
 	number = va_arg(args, int);
-	noOfBytes = getNumberLength(number, int_flag);
+	noOfBytes = getNumberLength(number, hexi_flag);
 
 	num_buff = malloc(sizeof(char) * noOfBytes); /* Allocate memory */
 
